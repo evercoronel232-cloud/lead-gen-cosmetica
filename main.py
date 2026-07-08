@@ -1,8 +1,9 @@
+ï»¿# -*- coding: utf-8 -*-
 import requests
 from bs4 import BeautifulSoup
 
 def buscar_marcas():
-    url = "https://www.google.com/search?q=marcas+skincare+españa"
+    url = "https://google.com"
     
     headers = {
         "User-Agent": "Mozilla/5.0"
