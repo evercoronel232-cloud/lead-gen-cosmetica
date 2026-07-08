@@ -1,8 +1,8 @@
-﻿import requests
+import requests
 from bs4 import BeautifulSoup
 
 def buscar_marcas():
-    url = "https://en.wikipedia.org/w/index.php?title=List_of_cosmetics_brands&printable=yes"
+    url = "https://www.beautypackaging.com/contents/view_online-exclusives/2023-05-01/top-100-beauty-companies/"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
@@ -16,17 +16,18 @@ def buscar_marcas():
 
     resultados = []
 
-    elementos = soup.select("li")
+    filas = soup.select("table tr")
 
-    print("Elementos encontrados:", len(elementos))
+    print("Filas:", len(filas))
 
-    for li in elementos:
-        texto = li.get_text(strip=True)
+    for fila in filas:
+        columnas = fila.find_all("td")
 
-        # filtro básico para evitar basura
-        if texto and len(texto) < 50:
+        if len(columnas) >= 2:
+            marca = columnas[1].get_text(strip=True)
+
             resultados.append({
-                "marca": texto
+                "marca": marca
             })
 
     return resultados
@@ -37,7 +38,7 @@ def main():
 
     print("\nLeads encontrados:\n")
 
-    for m in marcas[:15]:
+    for m in marcas[:20]:
         print(m)
 
 
