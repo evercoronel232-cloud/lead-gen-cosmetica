@@ -1,4 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
+print("VERSION NUEVA")
 import requests
 from bs4 import BeautifulSoup
 
