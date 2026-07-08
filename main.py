@@ -1,38 +1,20 @@
-﻿# -*- coding: utf-8 -*-
-print("VERSION NUEVA")
-import requests
-from bs4 import BeautifulSoup
+﻿import requests
 
-def buscar_marcas():
-    url = "https://wikipedia.org"
+def main():
+    url = "https://en.wikipedia.org/wiki/List_of_cosmetics_brands"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
 
     response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.text, "html.parser")
 
-    resultados = []
+    print("STATUS:", response.status_code)
+    print("HTML length:", len(response.text))
 
-    for li in soup.select("div.div-col li"):
-        nombre = li.get_text(strip=True)
-
-        if nombre:
-            resultados.append({
-                "marca": nombre
-            })
-
-    return resultados
-
-
-def main():
-    marcas = buscar_marcas()
-
-    print("Leads encontrados:\n")
-
-    for m in marcas[:10]:
-        print(m)
+    print("\n--- INICIO HTML ---\n")
+    print(response.text[:2000])
+    print("\n--- FIN HTML ---\n")
 
 
 if __name__ == "__main__":
