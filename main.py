@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def buscar_marcas():
-    url = "https://www.shopify.com/blog/skincare-brands"
+    url = "https://wikipedia.org"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
@@ -14,14 +14,12 @@ def buscar_marcas():
 
     resultados = []
 
-    for link in soup.find_all("a"):
-        texto = link.get_text(strip=True)
-        href = link.get("href")
+    for li in soup.select("div.div-col li"):
+        nombre = li.get_text(strip=True)
 
-        if texto and href and "http" in href:
+        if nombre:
             resultados.append({
-                "marca": texto,
-                "web": href
+                "marca": nombre
             })
 
     return resultados
