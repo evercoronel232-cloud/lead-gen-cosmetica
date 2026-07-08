@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 
 def buscar_marcas():
-    url = "https://google.com"
-    
+    url = "https://www.shopify.com/blog/skincare-brands"
+
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
@@ -14,14 +14,14 @@ def buscar_marcas():
 
     resultados = []
 
-    for g in soup.select("div.g"):
-        title = g.find("h3")
-        link = g.find("a")
+    for link in soup.find_all("a"):
+        texto = link.get_text(strip=True)
+        href = link.get("href")
 
-        if title and link:
+        if texto and href and "http" in href:
             resultados.append({
-                "marca": title.text,
-                "web": link["href"]
+                "marca": texto,
+                "web": href
             })
 
     return resultados
@@ -32,7 +32,7 @@ def main():
 
     print("Leads encontrados:\n")
 
-    for m in marcas[:5]:
+    for m in marcas[:10]:
         print(m)
 
 
